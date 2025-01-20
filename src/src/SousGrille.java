@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class SousGrille {
 
-    private int taille;
+    private static int taille;
     private int[] cellules;
 
     /**
@@ -22,6 +22,10 @@ public class SousGrille {
         this.cellules = new int[taille];
     }
 
+    public static int GetTaille() {
+        return taille;
+    }
+
     /**
      * Ajoute une valeur à une cellule donnée du bloc.
      *
@@ -30,7 +34,7 @@ public class SousGrille {
      * @throws IllegalArgumentException si la valeur est invalide ou déjà présente.
      */
     public void setValeur(int rang, int valeur) {
-        if (valeur < 1 || valeur > taille * taille) {
+        if (valeur < 1 || valeur > taille) {
             throw new IllegalArgumentException("Valeur invalide pour ce bloc.");
         }
         if (estPresent(valeur)) {
