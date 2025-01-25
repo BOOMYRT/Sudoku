@@ -1,88 +1,60 @@
 package src;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Classe représentant un bloc dans une grille de Sudoku.
  */
-
 public class SousGrille {
 
-    private static int taille;
-    private int[] cellules;
+    private int taille;
+    private List<String> cellulesPartagees; // Référence vers les cellules partagées
+    private int startIndex; // Index de départ dans la liste partagée
+    private int part; // Taille d'un côté de la sous-grille
 
     /**
      * Constructeur pour initialiser un bloc.
      *
-     * @param taille la taille du bloc (ex : 3 pour un bloc 3x3).
+     * @param tailleBloc        la taille de la sous-grille (ex : 3 pour un bloc 3x3).
+     * @param cellulesPartagees la liste des valeurs partagées.
+     * @param startIndex        l'index de départ des cellules dans la liste partagée.
+     * @param part              la taille d'un côté de la sous-grille.
      */
-    public SousGrille(int taille) {
-        this.taille = taille;
-        this.cellules = new int[taille];
-    }
-
-    public static int GetTaille() {
-        return taille;
+    public SousGrille(int tailleBloc, List<String> cellulesPartagees, int startIndex, int part) {
+        this.taille = tailleBloc * tailleBloc;
+        this.cellulesPartagees = cellulesPartagees;
+        this.startIndex = startIndex;
+        this.part = part;
     }
 
     /**
-     * Ajoute une valeur à une cellule donnée du bloc.
+     * Définit une valeur dans une cellule spécifique de la sous-grille.
      *
-     * @param rang   le rang dans le bloc (indexée à partir de 0).
-     * @param valeur la valeur à ajouter.
-     * @throws IllegalArgumentException si la valeur est invalide ou déjà présente.
+     * @param rang   le rang dans la sous-grille (indexé à partir de 0).
+     * @param valeur la valeur à placer dans la cellule.
      */
-    public void setValeur(int rang, int valeur) {
-        if (valeur < 1 || valeur > taille) {
-            throw new IllegalArgumentException("Valeur invalide pour ce bloc.");
-        }
-        if (estPresent(valeur)) {
-            throw new IllegalArgumentException("Valeur déjà présente dans ce bloc.");
-        }
-        cellules[rang] = valeur;
+    public void setValeur(int rang, String valeur) {
+        int index = startIndex + (rang / part) * part * part + (rang % part);
+        cellulesPartagees.set(index, valeur);
     }
 
     /**
-     * Vérifie si une valeur est déjà présente dans le bloc.
+     * Récupère la valeur d'une cellule spécifique de la sous-grille.
      *
-     * @param valeur la valeur à vérifier.
-     * @return true si la valeur est présente, false sinon.
+     * @param rang le rang dans la sous-grille (indexé à partir de 0).
+     * @return la valeur dans la cellule.
      */
-    public boolean estPresent(int valeur) {
-        for (int i = 0; i < taille; i++) {
-            if (cellules[i] == valeur) {
-                return true;
-            }
-        }
-        return false;
+    public String getValeur(int rang) {
+        int index = startIndex + (rang / part) * part * part + (rang % part);
+        return cellulesPartagees.get(index);
     }
 
     /**
-     * Récupère les valeurs actuelles du bloc.
+     * Vérifie si la sous-grille respecte les contraintes du Sudoku.
      *
-     * @return un tableau des valeurs du bloc.
-     */
-    public int[] getValeurs() {
-        return cellules;
-    }
-
-    /**
-     * Vérifie si le bloc respecte les contraintes du Sudoku (valeurs uniques).
-     *
-     * @return true si le bloc est valide, false sinon.
+     * @return true si la sous-grille est valide, false sinon.
      */
     public boolean estValide() {
-        Set<Integer> valeurs = new HashSet<>();
-        for (int i = 0; i < taille; i++) {
-            int valeur = cellules[i];
-            if (valeur != 0) {
-                if (valeurs.contains(valeur)) {
-                    return false;
-                }
-                valeurs.add(valeur);
-            }
-        }
-        return true;
+        return cellulesPartagees.stream().distinct().count() == taille;
     }
 }
