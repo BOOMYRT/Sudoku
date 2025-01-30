@@ -78,4 +78,33 @@ public class Grille {
             System.out.println();
         }
     }
+
+    /**
+ * Initialise la grille avec des valeurs pour qu'elle soit résolvable
+ */
+public void initialiser() {
+    // Exemple de grille partiellement remplie (résolvable)
+    String[][] valeursInitiales = {
+        { "5", "3", ".", ".", "7", ".", ".", ".", "." },
+        { "6", ".", ".", "1", "9", "5", ".", ".", "." },
+        { ".", "9", "8", ".", ".", ".", ".", "6", "." },
+        { "8", ".", ".", ".", "6", ".", ".", ".", "3" },
+        { "4", ".", ".", "8", ".", "3", ".", ".", "1" },
+        { "7", ".", ".", ".", "2", ".", ".", ".", "6" },
+        { ".", "6", ".", ".", ".", ".", "2", "8", "." },
+        { ".", ".", ".", "4", "1", "9", ".", ".", "5" },
+        { ".", ".", ".", ".", "8", ".", ".", "7", "9" }
+    };
+
+    // Remplissage de la grille via `setValeur`
+    for (int i = 0; i < taille; i++) {
+        for (int j = 0; j < taille; j++) {
+            if (!valeursInitiales[i][j].equals(".")) {
+                setValeur(i, j, valeursInitiales[i][j]);
+            }
+        }
+    }
+}
+
+
 }
