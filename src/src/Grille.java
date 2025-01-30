@@ -41,6 +41,12 @@ public class Grille {
         }
     }
 
+    public int GetTaille() {
+        return this.taille;
+    }
+
+
+
     /**
      * Définit une valeur dans une cellule spécifique de la grille.
      *
@@ -64,6 +70,10 @@ public class Grille {
      */
     public String getValeur(int ligne, int colonne) {
         int index = ligne * taille + colonne; // Calcul de l'index dans la liste partagée
+        return cellulesPartagees.get(index);
+    }
+
+    public String getValeur(int index) {
         return cellulesPartagees.get(index);
     }
 
@@ -107,4 +117,37 @@ public void initialiser() {
 }
 
 
+
+
+    /**
+ * Initialise la grille avec des valeurs pour qu'il reste deux espaces vides.
+ */
+public void initialiserPartiellement() {
+    // Exemple de grille initiale (presque complète, avec deux espaces vides)
+    String[][] valeursInitiales = {
+        { "5", "3", "4", "6", "7", "8", "9", "1", "2" },
+        { "6", "7", "2", "1", "9", "5", "3", "4", "8" },
+        { "1", "9", "8", "3", "4", "2", "5", "6", "7" },
+        { "8", "5", "9", "7", "6", "1", "4", "2", "3" },
+        { "4", "2", "6", "8", ".", "3", "7", "9", "1" }, // Une cellule vide (ligne 5, colonne 5)
+        { "7", "1", "3", "9", "2", "4", "8", "5", "6" },
+        { "9", "6", "1", "5", "3", "7", "2", "8", "4" },
+        { "2", "8", "7", "4", "1", "9", "6", ".", "5" }, // Une cellule vide (ligne 8, colonne 8)
+        { "3", "4", "5", "2", "8", "6", "1", "7", "9" }
+    };
+
+
+    // Remplissage de la grille via `setValeur`
+    for (int i = 0; i < taille; i++) {
+        for (int j = 0; j < taille; j++) {
+            if (!valeursInitiales[i][j].equals(".")) {
+                setValeur(i, j, valeursInitiales[i][j]);
+            }
+        }
+    }
 }
+
+
+}
+
+
