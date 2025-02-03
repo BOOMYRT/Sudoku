@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,23 +9,40 @@ import java.util.List;
 public class SousGrille {
 
     private int taille;
-    private List<String> cellulesPartagees; // Référence vers les cellules partagées
-    private int startIndex; // Index de départ dans la liste partagée
+    private ArrayList<Integer> positions = new ArrayList<>(); // Référence vers les cellules partagées
     private int part; // Taille d'un côté de la sous-grille
+    private Grille grille;
 
     /**
      * Constructeur pour initialiser un bloc.
      *
-     * @param tailleBloc        la taille de la sous-grille (ex : 3 pour un bloc 3x3).
-     * @param cellulesPartagees la liste des valeurs partagées.
-     * @param startIndex        l'index de départ des cellules dans la liste partagée.
-     * @param part              la taille d'un côté de la sous-grille.
+     * @param taille    la taille entière de la sous-grille (ex : 9 pour un bloc
+     *                  3x3).
+     * @param part      la taille d'un côté de la sous-grille (ex : 3 pour un bloc
+     *                  3x3).
+     * @param positions la liste des positions des valeurs de la sous-grille dans la
+     *                  grille.
      */
-    public SousGrille(int tailleBloc, List<String> cellulesPartagees, int startIndex, int part) {
-        this.taille = tailleBloc * tailleBloc;
-        this.cellulesPartagees = cellulesPartagees;
-        this.startIndex = startIndex;
+    public SousGrille(Grille grille, ArrayList<Integer> positions, int startIndex, int part) {
+        this.grille = grille;
+        this.taille = part * part;
+        this.positions = positions;
         this.part = part;
+    }
+
+    public SousGrille(int startIndex, int part) {
+        this.taille = part * part;
+        this.part = part;
+    }
+
+    public void initialiser(int startIndex, Grille grille) {
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < part; j++) {
+
+                positions.add(grille.getValeur(startIndex + i * taille + j));
+            }
+
+        }
     }
 
     /**
@@ -33,9 +51,8 @@ public class SousGrille {
      * @param rang   le rang dans la sous-grille (indexé à partir de 0).
      * @param valeur la valeur à placer dans la cellule.
      */
-    public void setValeur(int rang, String valeur) {
-        int index = startIndex + (rang / part) * part * part + (rang % part);
-        cellulesPartagees.set(index, valeur);
+    public void setIndex(int rangGrille, int rangSousGrille) {
+        positions.set(rangSousGrille, rangGrille);
     }
 
     /**

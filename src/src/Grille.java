@@ -10,8 +10,8 @@ public class Grille {
 
     private int taille;
     private String mode = "Standard";
-    public String[] elements = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-    private List<String> cellulesPartagees; // Liste des valeurs partagées
+    public int[] elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private ArrayList<Integer> cellules; // Liste des valeurs partagées
 
     private List<SousGrille> blocs = new ArrayList<>();
 
@@ -30,14 +30,14 @@ public class Grille {
         }
 
         // Initialisation des valeurs partagées
-        this.cellulesPartagees = new ArrayList<>();
+        this.cellules = new ArrayList<>();
         for (int i = 0; i < taille * taille; i++) {
-            this.cellulesPartagees.add("."); // Toutes les cellules initialisées à "."
+            this.cellules.add(0); // Toutes les cellules initialisées à "."
         }
 
         // Création des sous-grilles (blocs)
         for (int i = 0; i < taille; i++) {
-            this.blocs.add(new SousGrille(part, cellulesPartagees, i * part * part, part));
+            this.blocs.add(new SousGrille(i * part * part, part));
         }
     }
 
@@ -55,13 +55,13 @@ public class Grille {
      *                0).
      * @param valeur  la valeur à placer dans la cellule.
      */
-    public void setValeur(int ligne, int colonne, String valeur) {
+    public void setValeur(int ligne, int colonne, int valeur) {
         int index = ligne * taille + colonne; // Calcul de l'index dans la liste partagée
-        cellulesPartagees.set(index, valeur);
+        cellules.set(index, valeur);
     }
 
-    public void setValeur(int index, String valeur) {
-        cellulesPartagees.set(index, valeur);
+    public void setValeur(int index, int valeur) {
+        cellules.set(index, valeur);
     }
 
     /**
@@ -72,13 +72,13 @@ public class Grille {
      *                0).
      * @return la valeur dans la cellule.
      */
-    public String getValeur(int ligne, int colonne) {
+    public int getValeur(int ligne, int colonne) {
         int index = ligne * taille + colonne; // Calcul de l'index dans la liste partagée
-        return cellulesPartagees.get(index);
+        return cellules.get(index);
     }
 
-    public String getValeur(int index) {
-        return cellulesPartagees.get(index);
+    public int getValeur(int index) {
+        return cellules.get(index);
     }
 
     /**
@@ -98,22 +98,22 @@ public class Grille {
  */
 public void initialiser() {
     // Exemple de grille partiellement remplie (résolvable)
-    String[][] valeursInitiales = {
-        { "5", "3", ".", ".", "7", ".", ".", ".", "." },
-        { "6", ".", ".", "1", "9", "5", ".", ".", "." },
-        { ".", "9", "8", ".", ".", ".", ".", "6", "." },
-        { "8", ".", ".", ".", "6", ".", ".", ".", "3" },
-        { "4", ".", ".", "8", ".", "3", ".", ".", "1" },
-        { "7", ".", ".", ".", "2", ".", ".", ".", "6" },
-        { ".", "6", ".", ".", ".", ".", "2", "8", "." },
-        { ".", ".", ".", "4", "1", "9", ".", ".", "5" },
-        { ".", ".", ".", ".", "8", ".", ".", "7", "9" }
+    int[][] valeursInitiales = {
+        {5, 3, 0, 0, 7, 0, 0, 0, 0},
+        {6, 0, 0, 1, 9, 5, 0, 0, 0},
+        {0, 9, 8, 0, 0, 0, 0, 6, 0},
+        {8, 0, 0, 0, 6, 0, 0, 0, 3},
+        {4, 0, 0, 8, 0, 3, 0, 0, 1},
+        {7, 0, 0, 0, 2, 0, 0, 0, 6},
+        {0, 6, 0, 0, 0, 0, 2, 8, 0},
+        {0, 0, 0, 4, 1, 9, 0, 0, 5},
+        {0, 0, 0, 0, 8, 0, 0, 7, 9}
     };
 
     // Remplissage de la grille via `setValeur`
     for (int i = 0; i < taille; i++) {
         for (int j = 0; j < taille; j++) {
-            if (!valeursInitiales[i][j].equals(".")) {
+            if (valeursInitiales[i][j] != 0) {
                 setValeur(i, j, valeursInitiales[i][j]);
             }
         }
@@ -128,23 +128,23 @@ public void initialiser() {
  */
 public void initialiserPartiellement() {
     // Exemple de grille initiale (presque complète, avec deux espaces vides)
-    String[][] valeursInitiales = {
-        { "5", "3", "4", "6", "7", "8", "9", "1", "2" },
-        { "6", "7", "2", "1", "9", "5", "3", "4", "8" },
-        { "1", "9", "8", "3", "4", "2", "5", "6", "7" },
-        { "8", "5", "9", "7", "6", "1", "4", "2", "3" },
-        { "4", "2", "6", "8", ".", "3", "7", "9", "1" }, // Une cellule vide (ligne 5, colonne 5)
-        { "7", "1", "3", "9", "2", "4", "8", "5", "6" },
-        { "9", "6", "1", "5", "3", "7", "2", "8", "4" },
-        { "2", "8", "7", "4", "1", "9", "6", ".", "5" }, // Une cellule vide (ligne 8, colonne 8)
-        { "3", "4", "5", "2", "8", "6", "1", "7", "9" }
+    int[][] valeursInitiales = {
+        {5, 3, 0, 0, 7, 0, 0, 0, 0},
+        {6, 0, 0, 1, 9, 5, 0, 0, 0},
+        {0, 9, 8, 0, 0, 0, 0, 6, 0},
+        {8, 0, 0, 0, 6, 0, 0, 0, 3},
+        {4, 0, 0, 8, 0, 3, 0, 0, 1},
+        {7, 0, 0, 0, 2, 0, 0, 0, 6},
+        {0, 6, 0, 0, 0, 0, 2, 8, 0},
+        {0, 0, 0, 4, 1, 9, 0, 0, 5},
+        {0, 0, 0, 0, 8, 0, 0, 7, 9}
     };
 
 
     // Remplissage de la grille via `setValeur`
     for (int i = 0; i < taille; i++) {
         for (int j = 0; j < taille; j++) {
-            if (!valeursInitiales[i][j].equals(".")) {
+            if (valeursInitiales[i][j] != 0) {
                 setValeur(i, j, valeursInitiales[i][j]);
             }
         }
