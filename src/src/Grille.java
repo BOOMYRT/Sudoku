@@ -10,7 +10,7 @@ public class Grille {
 
     private int taille;
     private String mode = "Standard";
-    private String[] elements = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+    public String[] elements = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     private List<String> cellulesPartagees; // Liste des valeurs partagées
 
     private List<SousGrille> blocs = new ArrayList<>();
@@ -57,6 +57,10 @@ public class Grille {
      */
     public void setValeur(int ligne, int colonne, String valeur) {
         int index = ligne * taille + colonne; // Calcul de l'index dans la liste partagée
+        cellulesPartagees.set(index, valeur);
+    }
+
+    public void setValeur(int index, String valeur) {
         cellulesPartagees.set(index, valeur);
     }
 
