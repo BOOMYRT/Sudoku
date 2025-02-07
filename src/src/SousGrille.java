@@ -12,6 +12,7 @@ public class SousGrille {
     private ArrayList<Integer> positions = new ArrayList<>(); // Référence vers les cellules partagées
     private int part; // Taille d'un côté de la sous-grille
     private Grille grille;
+    private int startIndex;
 
     /**
      * Constructeur pour initialiser un bloc.
@@ -62,7 +63,7 @@ public class SousGrille {
      * @return la valeur dans la cellule.
      */
     public String getValeur(int rang) {
-        int index = startIndex + (rang / part) * part * part + (rang % part);
+                int index = startIndex + (rang / part) * part * part + (rang % part);
         return cellulesPartagees.get(index);
     }
 
