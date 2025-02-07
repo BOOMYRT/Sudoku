@@ -1,13 +1,15 @@
 package src;
 
+import java.lang.Cloneable;
 import java.util.Random;
 
 public class Grille {
     private int hauteur;
     private int largeur;
-    private float difficulte;
+    private int difficulte;
     private int type;
     private int symbole;
+    int[][] grid;
 
     public Grille(int hauteur, int largeur, int difficulte, int type, int symbole) {
         this.hauteur = hauteur;
@@ -73,12 +75,14 @@ public class Grille {
 
     private void removeNumbers(int[][] grid) {
         Random rand = new Random();
-        //change this into a percentage so the difficulty is more adjustable and works better
-        if (difficulte == 1){
+        // change this into a percentage so the difficulty is more adjustable and works
+        // better
+        if (difficulte == 1) {
             difficulte = 10;
         }
 
-        int cellsToRemove = (int)(grid.length * grid[0].length * difficulte) / 7; // Adjust the number of cells to remove based on difficulty
+        int cellsToRemove = (int) (grid.length * grid[0].length * difficulte) / 7; // Adjust the number of cells to
+                                                                                   // remove based on difficulty
 
         while (cellsToRemove > 0) {
             int row = rand.nextInt(grid.length);
@@ -91,7 +95,7 @@ public class Grille {
         }
     }
 
-    private boolean isSafe(int[][] grid, int row, int col, int num) {
+    public boolean isSafe(int[][] grid, int row, int col, int num) {
         return !isInRow(grid, row, num) && !isInCol(grid, col, num) && !isInBox(grid, row, col, num);
     }
 
@@ -125,4 +129,21 @@ public class Grille {
         }
         return false;
     }
+
+    public int getValeur(int i, int j) {
+        return grid[i][j];
+    }
+
+    public int GetH() {
+        return hauteur;
+    }
+
+    public int GetL() {
+        return largeur;
+    }
+
+    public void setValeur(int i, int j, int v) {
+        grid[i][j] = v;
+    }
+
 }
