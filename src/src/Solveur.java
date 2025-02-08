@@ -1,38 +1,64 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solveur {
 
-	private Grille grille;
-	private List<String> log;
-	private List<int[][]> hypotheses;
+    private Grille grille;
 
-	public Solveur(Grille grille) {
-		this.grille = grille;
-	}
+    public Solveur(Grille grille) {
+        this.grille = grille;
+    }
 
-	void retourTrace() {
-		hypotheses.add(grille.grid.clone());
-		for (int i = 0; i < grille.GetH(); i++) {
-			for (int j = 0; j < grille.GetL(); j++) {
+    public boolean resoudre() {
+        return resoudreBacktracking(0, 0);
+    }
 
-				if (grille.getValeur(i, j) == 0) {
-					for (int w = 0; w < grille.GetH() * grille.GetL(); w++) {
-						if (grille.isSafe(grille.grid, i, j, w)) {
-							grille.setValeur(i, j, w);
-							hypotheses.add(grille.grid.clone());
-						}
-						//insérer ici une boucle for skippant l'action à chaque fois que le chiffre testé est présent dans la ligne/colonne/SousGrille
-					}
-					hypotheses.add(grille.grid.clone());
-				}
-			}
-		}
+    private boolean resoudreBacktracking(int row, int col) {
+        // Si la colonne est égale à la largeur de la grille, passez à la ligne suivante
+        if (col == grille.GetL()) {
+            col = 0;
+            row++;
+        }
 
-		
-		return;
-	}
+        // Si la ligne est égale à la hauteur de la grille, la grille est résolue
+        if (row == grille.GetH()) {
+            return true;
+        }
 
+        // Si la cellule est déjà remplie, passez à la cellule suivante
+        if (grille.getValeur(row, col) != 0) {
+            return resoudreBacktracking(row, col + 1);
+        }
+
+        // Essayez de placer un chiffre dans la cellule
+        for (int num = 1; num <= grille.GetH() * grille.GetL(); num++) {
+            if (grille.isSafe(grille.grid, row, col, num)) {
+                grille.setValeur(row, col, num);
+
+                // Si la grille peut être résolue avec ce chiffre, retournez true
+                if (resoudreBacktracking(row, col + 1)) {
+                    return true;
+                }
+
+                // Sinon, retirez le chiffre et essayez le suivant
+                grille.setValeur(row, col, 0);
+            }
+        }
+
+        // Si aucun chiffre ne fonctionne, retournez false
+        return false;
+    }
+
+    public static void main(String[] args) {
+        // Exemple d'utilisation
+        Grille grille = new Grille(3, 3, 1, 0, 0);
+        int[][] puzzle = grille.genererGrille();
+
+        Solveur solveur = new Solveur(grille);
+        if (solveur.resoudre()) {
+            System.out.println("Solution trouvée :");
+            Main.printPuzzle(grille.grid);
+        } else {
+            System.out.println("Pas de solution trouvée.");
+        }
+    }
 }
