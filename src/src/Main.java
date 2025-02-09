@@ -28,18 +28,18 @@ public class Main {
             }
         }
 
-        // création temporaire de l'objet pour vérifier si l'utilisateur veut entrer sa grille
-        Grille g = new Grille(taille, difficulte, type, symbole);
-
-        boolean fournirGrille = g.fournirGrille(scanner);
+        boolean fournirGrille = fournirGrille(scanner);
 
         if (fournirGrille) {
+            Grille g = new Grille(taille, difficulte, type, symbole);
+
             System.out.println("Veuillez remplir votre propre grille :");
             g.fillGridWithLetters();
             int[][] userSudoku = g.fillGridWithNumbers(scanner);
             System.out.println("Votre grille entrée :");
             g.afficherGrilleInt(userSudoku);
-        } else {
+        }
+        else {
             while (true) {
                 System.out.print("Entrez le niveau de difficulté (1-5): ");
                 try {
@@ -67,6 +67,8 @@ public class Main {
                     System.out.println("Entrée invalide. Veuillez entrer un nombre.");
                 }
             }
+            //pour l'instant pas encore implémenté
+            type = 0;
 
             while (true) {
                 System.out.print("Entrez le symbole du Sudoku (0: numéros, 1: lettres, 2: emojis): ");
@@ -83,7 +85,7 @@ public class Main {
             }
 
             // création de l'objet après avoir collecté toutes les infos
-            g = new Grille(taille, difficulte, type, symbole);
+            Grille g = new Grille(taille, difficulte, type, symbole);
 
             int[][] sudoku = g.genererGrille();
             System.out.println("Sudoku généré :");
@@ -93,6 +95,9 @@ public class Main {
             else if (symbole == 1) {
                 char[][] sudokuLettre = g.convertGridToLetters(sudoku);
                 g.afficherGrilleChar(sudokuLettre);
+            }
+            else if (symbole == 2) {
+                g.afficherGrilleEmoji(sudoku);
             }
 
             //test solver deduction rules only
@@ -122,6 +127,9 @@ public class Main {
                     char[][] sudokuLettreResolu = g.convertGridToLetters(solver.getGrille());
                     g.afficherGrilleChar(sudokuLettreResolu);
                 }
+                else if (symbole == 2) {
+                    g.afficherGrilleEmoji(solver.getGrille());
+                }
             } else {
                 System.out.println("Impossible de résoudre le sudoku.");
             }
@@ -130,16 +138,37 @@ public class Main {
         replay(scanner);
     }
 
+    private static boolean fournirGrille(Scanner scanner) {
+        while (true) {
+            System.out.print("Voulez-vous entrer votre propre Sudoku ? (true/false): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("true") || input.equals("false")) {
+                return Boolean.parseBoolean(input);
+            } else {
+                System.out.println("Erreur: Veuillez entrer 'true' ou 'false'.");
+            }
+        }
+    }
+
     private static boolean isValidSudokuSize(int size) {
         int sqrt = (int) Math.sqrt(size);
         return sqrt * sqrt == size;
     }
 
     private static void replay(Scanner scanner) {
-        System.out.print("Est-ce que voulez rejouer? (true/false): ");
-        boolean answer = Boolean.parseBoolean(scanner.nextLine());
-            if (answer) {
-                main(new String[0]);
+        while (true) {
+            System.out.print("Est-ce que voulez rejouer? (true/false): ");
+            try {
+                String input = scanner.nextLine().trim().toLowerCase();
+                if (input.equals("true")) {
+                    main(new String[0]);
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur: Veuillez entrer 'true' ou 'false'.");
             }
+        }
     }
 }

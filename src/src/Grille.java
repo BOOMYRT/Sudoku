@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Grille {
     private static final char[] LETTRES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    private static final String[] EMOJIS = {"⬜", "🐸", "🐼", "🐷", "🐥", "🐞", "🐬", "🐱", "🐲", "🦀", "🐾", "🦔", "🐰", "🐵", "🪼", "🦕", "🦆"};
     private int taille;
     private float difficulte;
     private int type;
@@ -72,11 +73,6 @@ public class Grille {
                 grid[startRow + i][startCol + j] = numbers[index++];
             }
         }
-    }
-
-    public boolean fournirGrille(Scanner scanner) {
-        System.out.print("Voulez-vous entrer votre propre Sudoku ? (true/false): ");
-        return Boolean.parseBoolean(scanner.nextLine());
     }
 
     private boolean solveSudoku(int[][] grid, int row, int col) {
@@ -247,6 +243,26 @@ public class Grille {
                     System.out.print("| "); // Draw vertical separator
                 }
                 System.out.print(grid[row][col] + " "); // Print letter (or '.')
+            }
+            System.out.println(); // New line after each row
+        }
+    }
+
+    public void afficherGrilleEmoji(int[][] grid) {
+        int boxSize = (int) Math.sqrt(taille);
+
+        for (int row = 0; row < grid.length; row++) {
+            if (row % boxSize == 0 && row != 0) {
+                System.out.println("-".repeat(grid.length * 3 + boxSize - 1)); // Horizontal separator
+            }
+
+            for (int col = 0; col < grid[row].length; col++) {
+                if (col % boxSize == 0 && col != 0) {
+                    System.out.print("| "); // Vertical separator
+                }
+
+                int num = grid[row][col];
+                System.out.print((num == 0 ? "⬜" : EMOJIS[num]) + " "); // Ensure empty cells are always a white square
             }
             System.out.println(); // New line after each row
         }
