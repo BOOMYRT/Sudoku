@@ -205,10 +205,14 @@ public class Grille {
             }
             System.out.println();
         }
-        System.out.print("Est-ce que voulez rejouer? (true/false): ");
-        boolean answer = Boolean.parseBoolean(new Scanner(System.in).nextLine());
-        if (answer) {
-            Main.main(new String[0]);
+    }
+
+    public void afficherGrilleChar(char[][] grid) {
+        for (char[] row : grid) {
+            for (char cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
         }
     }
 
@@ -245,20 +249,6 @@ public class Grille {
             }
         }
         return grid;
-    }
-
-    public void afficherGrilleChar(char[][] grid) {
-        for (char[] row : grid) {
-            for (char cell : row) {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
-        }
-        System.out.print("Est-ce que voulez rejouer? (true/false): ");
-        boolean answer = Boolean.parseBoolean(new Scanner(System.in).nextLine());
-        if (answer) {
-            Main.main(new String[0]);
-        }
     }
 
     public int getValeur(int i, int j) {

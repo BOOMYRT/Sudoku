@@ -92,7 +92,7 @@ public class Main {
             //test solver deduction rules only
             //ask user which method they want to use to solve the sudoku
             while (true) {
-                System.out.print("Quelle méthode de résolution souhaitez-vous utiliser ? (0=méthode de déduction, 1=méthode de retour sur trace ou 2=méthode de retour sur trace et déduction): ");
+                System.out.print("Quelle méthode de résolution souhaitez-vous utiliser ? (0: méthode de déduction, 1: méthode de retour sur trace, 2: les deux): ");
                 try {
                     methode = Integer.parseInt(scanner.nextLine());
                     if (methode < 0 || methode > 2) {
@@ -114,10 +114,20 @@ public class Main {
                 System.out.println("Impossible de résoudre le sudoku.");
             }
         }
+        // méthode pour demander à l'utilisateur s'il veut rejouer
+        replay(scanner);
     }
 
     private static boolean isValidSudokuSize(int size) {
         int sqrt = (int) Math.sqrt(size);
         return sqrt * sqrt == size;
+    }
+
+    private static void replay(Scanner scanner) {
+        System.out.print("Est-ce que voulez rejouer? (true/false): ");
+        boolean answer = Boolean.parseBoolean(scanner.nextLine());
+            if (answer) {
+                main(new String[0]);
+            }
     }
 }
