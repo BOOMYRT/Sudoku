@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Grille {
     private static final char[] LETTRES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     // private static final String[] EMOJIS = {"⬜", "🐸", "🐼", "🐷", "🐥", "🐞", "🐬", "🐱", "🐲", "🦀", "🐾", "🦔", "🐰", "🐵", "🪼", "🦕", "🦆"};
-    private static final String[] EMOJIS = {"☺","☻","♥","♦","♣","♠","•","◘","○","◙","♂","♀","♪","♫","☼","►"};
+    private static final String[] EMOJIS = {".","☺","☻","♥","♦","♣","♠","•","◘","○","◙","♂","♀","♪","♫","☼","►"};
     private int taille;
     private float difficulte;
     private int type;
