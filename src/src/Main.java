@@ -87,7 +87,13 @@ public class Main {
 
             int[][] sudoku = g.genererGrille();
             System.out.println("Sudoku généré :");
-            g.afficherGrilleInt(sudoku);
+            if (symbole == 0) {
+                g.afficherGrilleInt(sudoku);
+            }
+            else if (symbole == 1) {
+                char[][] sudokuLettre = g.convertGridToLetters(sudoku);
+                g.afficherGrilleChar(sudokuLettre);
+            }
 
             //test solver deduction rules only
             //ask user which method they want to use to solve the sudoku
@@ -109,7 +115,13 @@ public class Main {
 
             if (solver.solve()) {
                 System.out.println("Sudoku résolu :");
-                g.afficherGrilleInt(solver.getGrille());
+                if (symbole == 0) {
+                    g.afficherGrilleInt(solver.getGrille());
+                }
+                else if (symbole == 1) {
+                    char[][] sudokuLettreResolu = g.convertGridToLetters(solver.getGrille());
+                    g.afficherGrilleChar(sudokuLettreResolu);
+                }
             } else {
                 System.out.println("Impossible de résoudre le sudoku.");
             }
