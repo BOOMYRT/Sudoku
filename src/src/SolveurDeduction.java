@@ -4,7 +4,6 @@ import java.util.*;
 
 public class SolveurDeduction {
     //0=methodeDeduction, 1=backtrack , 2=mix des deux
-    private int methode;
     private int[][] grille;
     private Set<Integer>[][] candidats;
     private int taille;
