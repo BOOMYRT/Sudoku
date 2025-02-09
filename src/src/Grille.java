@@ -277,4 +277,8 @@ public class Grille {
     public void setValeur(int i, int j, int v) {
         grid[i][j] = v;
     }
+
+    public int getTaille() {
+        return this.taille;
+    }
 }

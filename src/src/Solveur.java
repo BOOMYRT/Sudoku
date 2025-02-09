@@ -8,36 +8,26 @@ public class Solveur {
         this.grille = grille;
     }
 
-    public boolean resoudre() {
-        return resoudreBacktracking(0, 0);
-    }
+	void retourTrace() {
+		hypotheses.add(grille.grid.clone());
+		for (int i = 0; i < grille.getTaille(); i++) {
+			for (int j = 0; j < grille.getTaille(); j++) {
 
-    private boolean resoudreBacktracking(int row, int col) {
-        if (col == grille.getTaille()) {
-            col = 0;
-            row++;
-        }
+				if (grille.getValeur(i, j) == 0) {
+					for (int w = 0; w < grille.getTaille() * grille.getTaille(); w++) {
+						if (grille.isSafe(grille.grid, i, j, w)) {
+							grille.setValeur(i, j, w);
+							hypotheses.add(grille.grid.clone());
+						}
+						//insérer ici une boucle for skippant l'action à chaque fois que le chiffre testé est présent dans la ligne/colonne/SousGrille
+					}
+					hypotheses.add(grille.grid.clone());
+				}
+			}
+		}
 
-        if (row == grille.getTaille()) {
-            return true;
-        }
+		
+		return;
+	}
 
-        if (grille.getValeur(row, col) != 0) {
-            return resoudreBacktracking(row, col + 1);
-        }
-
-        for (int num = 1; num <= grille.getTaille(); num++) {
-            if (grille.isSafe(grille.getGrid(), row, col, num)) {
-                grille.setValeur(row, col, num);
-
-                if (resoudreBacktracking(row, col + 1)) {
-                    return true;
-                }
-
-                grille.setValeur(row, col, 0);
-            }
-        }
-
-        return false;
-    }
 }
