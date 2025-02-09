@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f375b50a-bde7-491d-9400-68ce0904d3db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/src/SolveurDeduction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/src/SolveurGeneral.java" afterDir="false" />
+    <list default="true" id="f375b50a-bde7-491d-9400-68ce0904d3db" name="Changes" comment="Ajout de la résolution par méthode de déduction, modifs dans grille pour ajouter getter, modifs dans solveur pour eviter erreur de compilation">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/code.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/src/Grille.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src/Solveur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/src/Solveur.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +107,14 @@
       <updated>1734340708724</updated>
       <workItem from="1734340709845" duration="485000" />
     </task>
+    <task id="LOCAL-00001" summary="Ajout de la résolution par méthode de déduction, modifs dans grille pour ajouter getter, modifs dans solveur pour eviter erreur de compilation">
+      <created>1739110289327</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739110289327</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,5 +130,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ajout de la résolution par méthode de déduction, modifs dans grille pour ajouter getter, modifs dans solveur pour eviter erreur de compilation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la résolution par méthode de déduction, modifs dans grille pour ajouter getter, modifs dans solveur pour eviter erreur de compilation" />
   </component>
 </project>
