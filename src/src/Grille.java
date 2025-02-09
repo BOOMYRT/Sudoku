@@ -17,6 +17,7 @@ public class Grille {
     char[][] letterGrid;
     Map<Integer, Character> numberToLetterMap;
 
+    // Constructeur
     public Grille(int taille, int difficulte, int type, int symbole) {
         this.taille = taille;
         this.difficulte = difficulte;
@@ -33,6 +34,7 @@ public class Grille {
         }
     }
 
+    // Remplissage de grille
     public int[][] genererGrille() {
         int[][] grid = new int[taille][taille];
         fillDiagonalBoxes(grid);
