@@ -13,6 +13,8 @@ public class SolveurGeneral {
      * @param taille  La taille de la grille (4x4, 9x9, etc.).
      * @param methode 0 = déduction, 1 = backtracking, 2 = mix.
      */
+
+    // Constructeur
     public SolveurGeneral(int[][] grille, int taille, int methode) {
         this.grille = grille;
         this.methode = methode;
