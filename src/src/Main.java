@@ -118,20 +118,19 @@ public class Main {
 
             SolveurGeneral solver = new SolveurGeneral(sudoku, g.getTaille(), methode);
 
+            System.out.println("Résolution du Sudoku en cours...");
             if (solver.solve()) {
-                System.out.println("Sudoku résolu :");
+                System.out.println("Sudoku résolu avec succès !");
                 if (symbole == 0) {
                     g.afficherGrilleInt(solver.getGrille());
-                }
-                else if (symbole == 1) {
+                } else if (symbole == 1) {
                     char[][] sudokuLettreResolu = g.convertGridToLetters(solver.getGrille());
                     g.afficherGrilleChar(sudokuLettreResolu);
-                }
-                else if (symbole == 2) {
+                } else if (symbole == 2) {
                     g.afficherGrilleEmoji(solver.getGrille());
                 }
             } else {
-                System.out.println("Impossible de résoudre le sudoku.");
+                System.out.println("Impossible de résoudre le Sudoku.");
             }
         }
         // méthode pour demander à l'utilisateur s'il veut rejouer
