@@ -3,7 +3,7 @@ package src;
 public class SolveurGeneral {
     private int[][] grille; // Référence à la grille courante (entrée/sortie)
     private final int methode; // Méthode de résolution
-    private final Solveur sudokuSolverBacktrack; // Solveur pour backtracking
+    private final SolveurBacktrack sudokuSolverBacktrack; // Solveur pour backtracking
     private final SolveurDeduction sudokuSolverDeduction; // Solveur pour déduction
 
     /**
@@ -19,7 +19,7 @@ public class SolveurGeneral {
         this.sudokuSolverDeduction = new SolveurDeduction(grille, taille); // Hypothèse : classe existante
         Grille g = new Grille(taille, 0, 0, 0); // Création temporaire pour Solveur (non nécessaire si vous utilisez `grille` directement)
         g.grid = grille; // Adapter l'état de `Grille` pour correspondre à `grille`
-        this.sudokuSolverBacktrack = new Solveur(g); // Passer `Grille` correctement au solveur backtracking
+        this.sudokuSolverBacktrack = new SolveurBacktrack(g); // Passer `Grille` correctement au solveur backtracking
     }
 
     /**
