@@ -1,6 +1,9 @@
 package src;
 
-public class Solveur {
+import java.util.ArrayList;
+import java.util.List;
+
+public class SolveurBacktrack {
     private Grille grille; // Référence à l'objet 'Grille'
     private List<int[][]> hypotheses; // Liste pour stocker les hypothèses
 
@@ -9,7 +12,7 @@ public class Solveur {
      *
      * @param grille la grille de Sudoku à résoudre.
      */
-    public Solveur(Grille grille) {
+    public SolveurBacktrack(Grille grille) {
         this.grille = grille;
         this.hypotheses = new ArrayList<>(); // Initialisation de la liste des hypothèses
     }
