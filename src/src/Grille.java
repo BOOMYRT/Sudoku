@@ -153,7 +153,7 @@ public class Grille {
         return newGrid;
     }
 
-    private boolean isSafe(int[][] grid, int row, int col, int num) {
+    boolean isSafe(int[][] grid, int row, int col, int num) {
         int boxSize = (int) Math.sqrt(taille);
         return isRowValid(grid, row, num) &&
                 isColValid(grid, col, num) &&
@@ -188,6 +188,10 @@ public class Grille {
             }
         }
         return true;
+    }
+
+    public int[][] getGrid() {
+        return grid;
     }
 
     public void afficherGrilleInt(int[][] grid) {
@@ -229,7 +233,8 @@ public class Grille {
         for (int row = 0; row < letterGrid.length; row++) {
             for (int col = 0; col < letterGrid[row].length; col++) {
                 while (true) {
-                    System.out.print("Entrez un nombre pour (" + row + ", " + col + ") [" + letterGrid[row][col] + "]: ");
+                    System.out
+                            .print("Entrez un nombre pour (" + row + ", " + col + ") [" + letterGrid[row][col] + "]: ");
                     try {
                         int number = Integer.parseInt(scanner.nextLine());
                         if (number >= 0 && number <= taille) {
@@ -265,7 +270,7 @@ public class Grille {
         return grid[i][j];
     }
 
-    public int GetTaille() {
+    public int getTaille() {
         return taille;
     }
 
