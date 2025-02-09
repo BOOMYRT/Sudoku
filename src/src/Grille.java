@@ -12,8 +12,8 @@ public class Grille {
     private float difficulte;
     private int type;
     private int symbole;
-    int[][] grid;
-    char[][] letterGrid;
+    private int[][] grid;
+    private char[][] letterGrid;
     Map<Integer, Character> numberToLetterMap;
 
 
@@ -277,11 +277,6 @@ public class Grille {
                 letterIndex++;
             }
         }
-        afficherGrilleChar(letterGrid);
-    }
-
-    public void afficherSudokuEnLettres() {
-        char[][] letterGrid = convertGridToLetters(grid);
         afficherGrilleChar(letterGrid);
     }
 
