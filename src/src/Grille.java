@@ -153,7 +153,7 @@ public class Grille {
         return newGrid;
     }
 
-    private boolean isSafe(int[][] grid, int row, int col, int num) {
+    protected boolean isSafe(int[][] grid, int row, int col, int num) {
         int boxSize = (int) Math.sqrt(taille);
         return isRowValid(grid, row, num) &&
                 isColValid(grid, col, num) &&
@@ -265,11 +265,12 @@ public class Grille {
         return grid[i][j];
     }
 
-    public int GetTaille() {
-        return taille;
-    }
 
     public void setValeur(int i, int j, int v) {
         grid[i][j] = v;
+    }
+
+    public int getTaille() {
+        return this.taille;
     }
 }

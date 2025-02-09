@@ -15,11 +15,11 @@ public class Solveur {
 
 	void retourTrace() {
 		hypotheses.add(grille.grid.clone());
-		for (int i = 0; i < grille.GetH(); i++) {
-			for (int j = 0; j < grille.GetL(); j++) {
+		for (int i = 0; i < grille.getTaille(); i++) {
+			for (int j = 0; j < grille.getTaille(); j++) {
 
 				if (grille.getValeur(i, j) == 0) {
-					for (int w = 0; w < grille.GetH() * grille.GetL(); w++) {
+					for (int w = 0; w < grille.getTaille() * grille.getTaille(); w++) {
 						if (grille.isSafe(grille.grid, i, j, w)) {
 							grille.setValeur(i, j, w);
 							hypotheses.add(grille.grid.clone());

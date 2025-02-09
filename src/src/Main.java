@@ -12,6 +12,7 @@ public class Main {
         int difficulte = 0;
         int type = 0;
         int symbole = 0;
+        int methode = -1;
 
         while (true) {
             System.out.print("Entrez la taille du Sudoku (4, 9, 16...): ");
@@ -87,6 +88,31 @@ public class Main {
             int[][] sudoku = g.genererGrille();
             System.out.println("Sudoku généré :");
             g.afficherGrilleInt(sudoku);
+
+            //test solver deduction rules only
+            //ask user which method they want to use to solve the sudoku
+            while (true) {
+                System.out.print("Quelle méthode de résolution souhaitez-vous utiliser ? (0=méthode de déduction, 1=méthode de retour sur trace ou 2=méthode de retour sur trace et déduction): ");
+                try {
+                    methode = Integer.parseInt(scanner.nextLine());
+                    if (methode < 0 || methode > 2) {
+                        System.out.println("Erreur: Veuillez entrer 0, 1 ou 2.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                }
+            }
+
+            SolveurGeneral solver = new SolveurGeneral(sudoku, g.getTaille(), methode);
+
+            if (solver.solve()) {
+                System.out.println("Sudoku résolu :");
+                g.afficherGrilleInt(solver.getGrille());
+            } else {
+                System.out.println("Impossible de résoudre le sudoku.");
+            }
         }
     }
 
