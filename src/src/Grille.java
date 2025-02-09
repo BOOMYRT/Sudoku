@@ -1,5 +1,7 @@
 package src;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,12 +13,22 @@ public class Grille {
     private int symbole;
     int[][] grid;
     char[][] letterGrid;
+    Map<Integer, Character> numberToLetterMap;
 
     public Grille(int taille, int difficulte, int type, int symbole) {
         this.taille = taille;
         this.difficulte = difficulte;
         this.type = type;
         this.symbole = symbole;
+
+        this.numberToLetterMap = new HashMap<>();
+        initializeLetterMapping();
+    }
+
+    private void initializeLetterMapping() {
+        for (int i = 1; i <= taille; i++) {
+            numberToLetterMap.put(i, LETTRES[i - 1]);
+        }
     }
 
     public int[][] genererGrille() {
@@ -190,8 +202,19 @@ public class Grille {
         return true;
     }
 
-    public int[][] getGrid() {
-        return grid;
+    public char[][] convertGridToLetters(int[][] grid) {
+        char[][] letterGrid = new char[taille][taille];
+
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (grid[i][j] == 0) {
+                    letterGrid[i][j] = '.'; // Keep empty cells as '.'
+                } else {
+                    letterGrid[i][j] = LETTRES[grid[i][j] - 1]; // Map numbers to letters
+                }
+            }
+        }
+        return letterGrid;
     }
 
     public void afficherGrilleInt(int[][] grid) {
@@ -212,11 +235,19 @@ public class Grille {
     }
 
     public void afficherGrilleChar(char[][] grid) {
-        for (char[] row : grid) {
-            for (char cell : row) {
-                System.out.print(cell + " ");
+        int boxSize = (int) Math.sqrt(taille);
+
+        for (int row = 0; row < grid.length; row++) {
+            if (row % boxSize == 0 && row != 0) {
+                System.out.println("-".repeat(grid.length * 2 + boxSize - 1)); // Draw horizontal separator
             }
-            System.out.println();
+            for (int col = 0; col < grid[row].length; col++) {
+                if (col % boxSize == 0 && col != 0) {
+                    System.out.print("| "); // Draw vertical separator
+                }
+                System.out.print(grid[row][col] + " "); // Print letter (or '.')
+            }
+            System.out.println(); // New line after each row
         }
     }
 
@@ -229,6 +260,11 @@ public class Grille {
                 letterIndex++;
             }
         }
+        afficherGrilleChar(letterGrid);
+    }
+
+    public void afficherSudokuEnLettres() {
+        char[][] letterGrid = convertGridToLetters(grid);
         afficherGrilleChar(letterGrid);
     }
 
@@ -258,10 +294,6 @@ public class Grille {
 
     public int getValeur(int i, int j) {
         return grid[i][j];
-    }
-
-    public int getTaille() {
-        return taille;
     }
 
     public void setValeur(int i, int j, int v) {
